@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+    php:
+        environment:
+            XDEBUG_SESSION: PHPSTORM
+            #XDEBUG_MODE: debug
+            XDEBUG_MODE: develop
+            XDEBUG_CONFIG: >-
+                client_host=host.docker.internal
+
+    db:
+        ports:
+            - 3306:3306
+
+#    db_testing:
+#        image: mysql:8.0
+#        volumes:
+#            - ask_mysql_data:/var/lib/mysql
+#        cap_add:
+#            - SYS_NICE
+#        environment:
+#            MYSQL_ROOT_PASSWORD: root
+#            MYSQL_DATABASE: ask_test
+#            MYSQL_USER: ask_test
+#            MYSQL_PASSWORD: ask_test
+#        ports:
+#            - 3307:3306
+
+    nginx:
+        ports:
+            - 80:80
+            - 443:443
+
+#    smtp:
+#        image: mailhog/mailhog
+#        command: ["-smtp-bind-addr", "0.0.0.0:25"]
+#        user: root
+#        expose:
+#            - 25
+#            - 8025
+#        ports:
+#            - 8025:8025
+
+#    elasticsearch:
+#        image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
+#        environment:
+#            - cluster.name=docker-cluster
+#            - bootstrap.memory_lock=true
+#            - discovery.type=single-node
+#            - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # 512mo HEAP
+#        ulimits:
+#            memlock:
+#                soft: -1
+#                hard: -1
+#        ports:
+#            - 9200:9200
+#
+#    kibana:
+#        image: docker.elastic.co/kibana/kibana:7.14.1
+#        environment:
+#            ELASTICSEARCH_URL: http://elasticsearch:9200
+#        depends_on:
+#            - elasticsearch
+#        ports:
+#            - 5601:5601
+
+volumes:
+    ask_mysql_testing_data:
+        driver: local

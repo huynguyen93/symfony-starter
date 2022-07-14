@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+    db:
+        image: mysql:8.0
+        volumes:
+            - ask_mysql_data:/var/lib/mysql
+        cap_add:
+            - SYS_NICE
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ask
+            MYSQL_USER: ask
+            MYSQL_PASSWORD: ask
+
+    php:
+        build:
+            context: docker/php
+            args:
+                TIMEZONE: Asia/Ho_Chi_Minh
+                uid: 1000
+                gid: 1000
+        volumes:
+            - ./apps/main:/var/www/symfony
+            - ~/.cache/composer:/.composer
+        environment:
+            COMPOSER_HOME: /.composer
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        working_dir: /var/www/symfony
+
+    nginx:
+        depends_on:
+            - php
+        build:
+            context: docker/nginx
+        volumes:
+            - ./apps/main:/var/www/symfony
+
+volumes:
+    ask_mysql_data:
+        driver: local

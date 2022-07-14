@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Welcome!{% endblock %}</title>
+  <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+  {% set isDarkTheme = app.request.cookies.get('defaultTheme') == 'dark' %}
+  {% set cssLightUrl = asset('assets/cssLight.css') %}
+  {% set cssDarkUrl = asset('assets/cssDark.css') %}
+  <link
+    class="app-style"
+    rel="stylesheet"
+    href="{{ isDarkTheme ? cssDarkUrl : cssLightUrl }}"
+  >
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body class="d-flex flex-column">
+  {% include '_blocks/nav_primary.html.twig' %}
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <div class="flex-grow-1"></div>
+
+  {% include '_blocks/footer.html.twig' %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="{{ asset('assets/front.js') }}"></script>
+  {% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,11 @@
+html {
+  overflow-y: scroll;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  padding-right: 0 !important; // fix bootstrap modal
+}

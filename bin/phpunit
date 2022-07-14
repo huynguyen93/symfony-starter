@@ -1,0 +1,3 @@
+set -x # echo run commands
+
+docker-compose exec --user www-data php ./bin/phpunit "$@"

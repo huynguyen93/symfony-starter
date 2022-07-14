@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    db:
+        ports:
+            - 3306:3306
+
+    db_testing:
+        image: mysql:8.0
+        volumes:
+            - ask_mysql_data:/var/lib/mysql
+        cap_add:
+            - SYS_NICE
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ask_test
+            MYSQL_USER: ask_test
+            MYSQL_PASSWORD: ask_test
+        ports:
+            - 3307:3306
+
+    nginx:
+        ports:
+            - 80:80
+            - 443:443
+
+    smtp:
+        image: mailhog/mailhog
+        command: ["-smtp-bind-addr", "0.0.0.0:25"]
+        user: root
+        expose:
+            - 25
+            - 8025
+        ports:
+            - 8025:8025
+
+volumes:
+    ask_mysql_testing_data:
+        driver: local

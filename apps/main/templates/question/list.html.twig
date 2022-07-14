@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  <h1>Questions</h1>
+
+  <form action="">
+    <div class="row align-items-center">
+      <div class="col-auto form-group mb-3">
+        <label for="targetLanguageCodeSelect">Question about</label>
+        <select class="form-select" name="targetLanguageCode" id="targetLanguageCodeSelect">
+          <option value="">Select a language</option>
+          {% for languageCode in languageCodes %}
+            <option value="{{ languageCode }}" {{ languageCode == selectedTargetLanguage ? 'selected' : '' }}>
+              {{ languageCode }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto form-group mb-3">
+        <label for="expectedLanguageCodesSelect">Need answers in</label>
+        <select class="form-select" multiple name="expectedLanguageCodes[]" id="expectedLanguageCodesSelect">
+          <option value="">Select languages</option>
+          {% for languageCode in languageCodes %}
+            <option value="{{ languageCode }}" {{ languageCode in selectedExpectedLanguages ? 'selected' : '' }}>
+              {{ languageCode }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto ">
+        <button class="btn btn-primary">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <h2>{{ questions|length }} results</h2>
+
+  {% for question in questions %}
+    <div class="card mb-5">
+      <div class="card-body">
+        <h5 class="card-title">{{ question.id }}</h5>
+        <div>
+          Target: {{ question.targetLanguageCode }}
+        </div>
+        {% for expectedLanguageCode in question.expectedLanguageCodes %}
+          <div>
+            Expected: {{ expectedLanguageCode }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="mb-4">
+  {% set oauthErrors = app.flashes('oauthError') %}
+  {% if oauthErrors %}
+    <p class="text-danger">{{ oauthErrors|last }}</p>
+  {% endif %}
+  <p><a href="{{ path('app.security.facebook') }}">Continue with Facebook</a></p>
+  <p><a href="{{ path('app.security.google') }}">Continue with Google</a></p>
+</div>

@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+  <div class="row mt-5">
+    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <h1 class="mb-4">Sign Up</h1>
+
+      {% include 'security/_social_login.html.twig' %}
+
+      <form id="form-registration">
+        <div class="mb-3">
+          <label for="field-name" class="form-label">Your Name</label>
+          <input type="text" class="form-control" id="field-name" required>
+        </div>
+        <div class="mb-3">
+          <label for="field-email" class="form-label">Your Email</label>
+          <input type="email" class="form-control" id="field-email" required>
+          <div id="feedback-email" class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="field-password" class="form-label">Set a password</label>
+          <input type="password" class="form-control" id="field-password" required>
+        </div>
+        <div class="mb-3 text-danger" id="feedback-form"></div>
+        <div>
+          <button type="submit" class="btn btn-primary" id="btn-submit">Register</button>
+        </div>
+      </form>
+
+      <div class="mt-4">
+        <p>
+          <a href="{{ path('app.security.login') }}">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script>
+    const form = document.getElementById('form-registration');
+    const fieldName = document.getElementById('field-name');
+    const fieldEmail = document.getElementById('field-email');
+    const fieldPassword = document.getElementById('field-password');
+    const feedbackEmail = document.getElementById('feedback-email');
+    const feedbackForm = document.getElementById('feedback-form');
+    const homepageUrl = '{{ absolute_url(path('app.homepage')) }}';
+    const btnSubmit = document.getElementById('btn-submit');
+
+    function showFormError() {
+      btnSubmit.removeAttribute('disabled');
+      feedbackForm.innerHTML = 'An error happened, please try again later!';
+    }
+
+    fieldEmail.addEventListener('input', function () {
+      fieldEmail.classList.remove('is-invalid');
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = fieldEmail.value;
+
+      btnSubmit.setAttribute('disabled', 'disabled');
+      fieldEmail.classList.remove('is-invalid');
+      feedbackEmail.innerHTML = '';
+      feedbackForm.innerHTML = '';
+
+      fetch('{{ path('app.api.user.check_email_exists') }}', {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+        }),
+      })
+        .then((resp) => {
+          if (resp.status === 200) {
+            return resp.json();
+          } else {
+            showFormError();
+          }
+        })
+        .then((responseData) => {
+          if (responseData.exists === false) {
+            fetch('{{ path('app.api.user.register') }}', {
+              method: 'POST',
+              body: JSON.stringify({
+                displayName: fieldName.value,
+                email: email,
+                password: fieldPassword.value,
+              }),
+            })
+              .then((resp2) => {
+                if (resp2.status === 200) {
+                  window.location.href = homepageUrl;
+                } else {
+                  showFormError();
+                }
+              });
+          } else {
+            btnSubmit.removeAttribute('disabled');
+            fieldEmail.classList.add('is-invalid');
+            feedbackEmail.innerHTML = 'This email has been used, Please use another one!';
+          }
+        });
+    });
+  </script>
+{% endblock %}

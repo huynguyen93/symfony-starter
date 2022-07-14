@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+  <div class="row mt-5">
+    <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+      <h1 class="mb-4">Sign in</h1>
+
+      {% include 'security/_social_login.html.twig' %}
+
+      <form id="form-login">
+        <div class="mb-3">
+          <label for="field-email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="field-email" required>
+        </div>
+        <div class="mb-3">
+          <label for="field-password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="field-password" required>
+        </div>
+        <div class="mb-3 text-danger d-none" id="error-message-container"></div>
+        <div>
+          <button class="btn btn-primary" id="btn-submit">
+            Submit
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-4">
+        <p>
+          <a href="{{ path('app.reset_password.request')}}">Forgot password</a>
+        </p>
+        <p>
+          <a href="{{ path('app.signup') }}">Create a new account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script>
+    const formLogin = document.getElementById('form-login');
+    const btnSubmit = document.getElementById('btn-submit');
+    const fieldEmail = document.getElementById('field-email');
+    const fieldPassword = document.getElementById('field-password');
+    const errorMessageContainer = document.getElementById('error-message-container');
+    const homepageUrl = '{{ absolute_url(path('app.homepage')) }}';
+
+    formLogin.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      btnSubmit.setAttribute('disabled', 'disabled');
+      errorMessageContainer.classList.add('d-none');
+
+      fetch('/login', {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          email: fieldEmail.value,
+          password: fieldPassword.value,
+        }),
+      })
+        .then((resp) => {
+          if (resp.status === 200) {
+            window.location.href = homepageUrl;
+          } else if (resp.status < 500) {
+            return resp.json();
+          }
+        })
+        .then((json) => {
+          btnSubmit.removeAttribute('disabled');
+          errorMessageContainer.innerHTML = json.message;
+          errorMessageContainer.classList.remove('d-none');
+        });
+    });
+  </script>
+{% endblock%}

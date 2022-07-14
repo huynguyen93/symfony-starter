@@ -1,0 +1,145 @@
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #ebebeb !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #888 !default;
+$gray-700: #444 !default;
+$gray-800: #303030 !default;
+$gray-900: #222 !default;
+$black: #000 !default;
+
+$blue: #4084ec !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #e74c3c !default;
+$orange: #fd7e14 !default;
+$yellow: #f39c12 !default;
+$green: #32af4c !default;
+$teal: #20c997 !default;
+$teal-100: #00412e !default;
+$cyan: #4ca3dc !default;
+
+$primary: $blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-500 !default;
+$dark: $gray-800 !default;
+
+$min-contrast-ratio: 1.9 !default;
+
+// Body
+$body-bg: $gray-900 !default;
+$body-color: $gray-400 !default;
+
+$border-color: $gray-700 !default;
+
+// Links
+$link-color: $info !default;
+
+// Fonts
+// stylelint-disable-next-line value-keyword-case
+$text-muted: $gray-600 !default;
+
+// Tables
+$table-border-color: $gray-700 !default;
+$table-bg-scale: 0 !default;
+
+// Forms
+$input-bg: $gray-800 !default;
+$input-color: $gray-500 !default;
+$input-border-color: $gray-600 !default;
+$input-group-addon-color: $gray-500 !default;
+$input-group-addon-bg: $gray-700 !default;
+
+$form-check-input-bg: $white !default;
+$form-check-input-border: none !default;
+
+$form-file-button-color: $white !default;
+
+// Dropdowns
+$dropdown-bg: $gray-900 !default;
+$dropdown-border-color: $gray-700 !default;
+$dropdown-divider-bg: $gray-700 !default;
+$dropdown-link-color: $white !default;
+$dropdown-link-hover-color: $white !default;
+$dropdown-link-hover-bg: $primary !default;
+
+// Navs
+$nav-link-disabled-color: $gray-500 !default;
+$nav-tabs-border-color: $gray-700 !default;
+$nav-tabs-link-hover-border-color: $nav-tabs-border-color $nav-tabs-border-color transparent !default;
+$nav-tabs-link-active-color: $white !default;
+$nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-color transparent !default;
+
+// Navbar
+$navbar-dark-color: rgba($white, .6) !default;
+$navbar-dark-hover-color: $white !default;
+$navbar-light-color: rgba($gray-900, .7) !default;
+$navbar-light-hover-color: $gray-900 !default;
+$navbar-light-active-color: $gray-900 !default;
+$navbar-light-toggler-border-color: rgba($gray-900, .1) !default;
+
+// Pagination
+$pagination-color: $white !default;
+$pagination-bg: $gray-800 !default;
+$pagination-border-color: transparent !default;
+$pagination-hover-color: $white !default;
+$pagination-hover-bg: lighten($gray-800, 10%) !default;
+$pagination-hover-border-color: transparent !default;
+$pagination-active-bg: $pagination-hover-bg !default;
+$pagination-active-border-color: transparent !default;
+$pagination-disabled-color: $white !default;
+$pagination-disabled-bg: darken($gray-800, 15%) !default;
+$pagination-disabled-border-color: transparent !default;
+
+// Cards
+$card-cap-bg: $gray-700 !default;
+$card-bg: $gray-800 !default;
+
+// Popovers
+$popover-bg: $gray-800 !default;
+$popover-header-bg: $gray-700 !default;
+
+// Toasts
+$toast-background-color: $gray-700 !default;
+$toast-header-background-color: $gray-800 !default;
+
+// Modals
+$modal-content-bg: $gray-800 !default;
+$modal-content-border-color: $gray-700 !default;
+$modal-header-border-color: $gray-700 !default;
+
+// Progress bars
+
+$progress-bg: $gray-700 !default;
+
+// List group
+$list-group-color: $body-color !default;
+$list-group-bg: $gray-800 !default;
+$list-group-border-color: $gray-700 !default;
+$list-group-hover-bg: $gray-700 !default;
+$list-group-action-hover-color: $list-group-color !default;
+$list-group-action-active-bg: $gray-900 !default;
+
+// Close
+$btn-close-color: $white !default;
+$btn-close-opacity: .4 !default;
+$btn-close-hover-opacity: 1 !default;
+
+// Code
+$pre-color: inherit !default;
+
+$form-select-indicator: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$gray-200}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") !default;
+
+@import "./_bootstrap.scss";
+@import "./front.scss";
+
+audio::-webkit-media-controls-panel {
+  background-color: $gray-600;
+}
