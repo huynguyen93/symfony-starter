@@ -1,9 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-  <h1>Profile</h1>
-
-  <img src="{{ user.avatarUrl }}" alt="user's avatar">
-  <p>Name: {{ user.displayName }}</p>
-  <p>Email: {{ user.email }}</p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="border p-3">
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <img src="{{ user.avatarUrl }}" alt="user's avatar">
+          </div>
+          <div>
+            <h1 class="fs-3 mb-0">
+              {{ user.displayName }}
+              <small class="text-muted">{{ user.email }}</small>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
