@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg border-bottom navbar-dark bg-dark">
   <div class="container">
     <a href="{{ path('app.homepage') }}" class="navbar-brand fs-2">
-      AskLingo
+      Starter
     </a>
     <button
       class="navbar-toggler"
@@ -18,10 +18,6 @@
       <ul class="navbar-nav ms-auto">
         {% set currentPath = app.request.pathInfo %}
         {% set navItems = [
-          {
-            label: 'Questions',
-            url: path('app.question.list'),
-          },
           {
             label: 'login'|trans,
             url: path('app.security.login'),

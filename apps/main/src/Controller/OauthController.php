@@ -21,13 +21,13 @@ class OauthController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/fb', name: 'app.security.facebook')]
+    #[Route(path: '/oauth/fb', name: 'app.security.facebook')]
     public function loginFacebookAction(Request $request): RedirectResponse
     {
         return $this->createSocialLoginResponse($this->facebookOauthClient->getAuthorizationUrl());
     }
 
-    #[Route(path: '/fbcb', name: 'app.security.facebook_callback')]
+    #[Route(path: '/oauth/fbcb', name: 'app.security.facebook_callback')]
     public function facebookCallbackAction(): RedirectResponse
     {
         // this method is called only when user denied access
@@ -35,13 +35,13 @@ class OauthController extends AbstractController
         return $this->redirectToRoute('app.security.login');
     }
 
-    #[Route(path: '/google', name: 'app.security.google')]
+    #[Route(path: '/oauth/google', name: 'app.security.google')]
     public function loginGoogleAction(): RedirectResponse
     {
         return $this->createSocialLoginResponse($this->googleOauthClient->getAuthorizationUrl());
     }
 
-    #[Route(path: '/googlecb', name: 'app.security.google_callback')]
+    #[Route(path: '/oauth/googlecb', name: 'app.security.google_callback')]
     #[Route(path: '/oauth-callback/{providerName}', name: 'app.security.oauth_callback')]
     public function googleCallbackAction(): RedirectResponse
     {
